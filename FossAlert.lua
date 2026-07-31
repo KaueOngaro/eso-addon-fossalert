@@ -14,9 +14,8 @@ local ADDON = "FossAlert"
 -- =========================================================
 
 local WATCH = {
-    [32678] = "Shattering Rocks",
-    [32678] = "Fossilize",
-    [29037] = "Petrify"
+    [32678] = "Fossilize / Shattering Rocks",
+    [29037] = "Petrify",
 }
 
 local CC_IMMUNITY_ID       = 28301
