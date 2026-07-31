@@ -1,0 +1,10 @@
+## Title: FossAlert
+## Author: Kaue
+## Version: 0.6
+## APIVersion: 101044
+## Description: Warns you when Fossilize/Petrify lands on you, so you can roll the stun
+## SavedVariables: FossAlertSV
+## DependsOn: LibAddonMenu-2.0
+
+Locale.lua
+FossAlert.lua
