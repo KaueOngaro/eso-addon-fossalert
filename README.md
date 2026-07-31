@@ -1,6 +1,6 @@
 # FossAlert
 
-Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** entra em você, dando tempo de dar roll dodge antes do stun.
+Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** é aplicado em você, dando tempo de dar roll dodge antes do stun.
 
 Desde a Update 49 essas habilidades não stunam mais na hora. Elas te encasulam por **1 segundo** (snare de 50% + Minor Breach) e só depois vem o stun de 4 segundos — e esse stun agora **pode ser esquivado**. Esse 1 segundo é o motivo do addon existir: o aviso visual do jogo é fácil de perder no meio da briga, então o FossAlert torna impossível não ver.
 
