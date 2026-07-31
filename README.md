@@ -126,14 +126,12 @@ Todas as chaves precisam existir em todos os blocos.
 
 **Não dá pra usar som personalizado.** A API só toca sons que já vêm no jogo (a tabela `SOUNDS`). É limitação do cliente, não descuido.
 
-**A imunidade de CC rastreada é a sua.** É isso que suprime alerta falso, e funciona de forma confiável. Ler a imunidade de um *player inimigo* é um problema separado e bem mais difícil — ainda está em aberto se a API expõe o suficiente pra isso.
+**A imunidade de CC rastreada é a sua.** É isso que suprime alerta falso, e funciona de forma confiável. Ler a imunidade de um *player inimigo* não dá: testado via `EVENT_EFFECT_CHANGED`/`GetUnitBuffInfo` filtrado em `"reticleover"`, o buff de CC Immunity (id 28301) nunca aparece pra alvos que não são você — o servidor não replica esse dado pros outros clientes. O indicador nativo do jogo (o ícone quebrado sobre a barra do alvo) deve vir de um cálculo interno não exposto via addon. O Bandits UI bateu na mesma parede — tem um bloco de detecção disso no código deles, comentado e desativado.
 
 ---
 
 ## Ideias pro futuro
 
-- [ ] Investigar se buffs de player inimigo são legíveis via `GetUnitBuffInfo("reticleover", ...)` — as fontes se contradizem, precisa de teste no jogo
-- [ ] Indicador de imunidade de CC do alvo, se o item acima for viável (uma primeira tentativa foi removida por não funcionar de forma confiável)
 - [ ] Detectar o cast em vez do efeito já aplicado, pra ganhar tempo de reação
 - [ ] Flash na tela inteira como alternativa ao texto central (pega melhor a visão periférica)
 - [ ] Aviso de ID duplicado na tabela `WATCH`
