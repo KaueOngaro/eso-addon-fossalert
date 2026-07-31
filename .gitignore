@@ -1,0 +1,14 @@
+# SavedVariables gerados pelo jogo
+SavedVariables/
+*.lua.bak
+
+# pacotes de release
+*.zip
+
+# lixo de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# config local do Claude Code
+.claude/

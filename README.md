@@ -1,6 +1,6 @@
 # FossAlert
 
-Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** é aplicado em você, dando tempo de dar roll dodge antes do stun.
+Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** entra em você, dando tempo de dar roll dodge antes do stun.
 
 Desde a Update 49 essas habilidades não stunam mais na hora. Elas te encasulam por **1 segundo** (snare de 50% + Minor Breach) e só depois vem o stun de 4 segundos — e esse stun agora **pode ser esquivado**. Esse 1 segundo é o motivo do addon existir: o aviso visual do jogo é fácil de perder no meio da briga, então o FossAlert torna impossível não ver.
 
@@ -26,8 +26,9 @@ Desde a Update 49 essas habilidades não stunam mais na hora. Elas te encasulam 
 ## Instalação
 
 1. Instale a **LibAddonMenu-2.0** dentro de `AddOns/`
-2. Coloque a pasta `FossAlert` dentro de `AddOns/`
-3. Reinicie a interface de verdade — saia para a tela de seleção de personagem e volte (`/reloadui` não pega addon novo)
+2. Baixe este repositório (botão verde **Code → Download ZIP**, ou pegue o zip da aba [Releases](../../releases))
+3. Descompacte e arraste a pasta **`FossAlert`** de dentro dele para `AddOns/`
+4. Reinicie a interface de verdade — saia para a tela de seleção de personagem e volte (`/reloadui` não pega addon novo)
 
 A estrutura tem que ficar assim:
 
@@ -41,7 +42,10 @@ Documentos/Elder Scrolls Online/live/AddOns/
     └── ...
 ```
 
-Repare que a `LibAddonMenu-2.0` fica **ao lado** da `FossAlert`, não dentro dela. É o erro mais comum de instalação.
+Dois erros clássicos de instalação:
+
+- **Arrastar a pasta errada.** O zip do GitHub vem com uma pasta externa chamada `eso-addon-fossalert-main`. O que vai para `AddOns/` é a pasta `FossAlert` que está **dentro** dela — o nome da pasta precisa bater com o nome do arquivo `.txt`, senão o jogo ignora o addon sem dar nenhum aviso.
+- **Aninhar a LibAddonMenu.** Ela fica **ao lado** da `FossAlert`, não dentro dela.
 
 ---
 
@@ -88,11 +92,13 @@ Os IDs mudam entre patches. Se o addon parar de disparar depois de uma atualiza�
 
 ```lua
 local WATCH = {
-    [32678] = "Fossilize",
-    [29037] = "Petrify",
-    -- adicione os IDs aqui
+    [32678] = "1",
+    [32685] = "2",
+    [29037] = "3",
 }
 ```
+
+O texto do lado é só rótulo — não aparece em lugar nenhum, serve pra você se lembrar de qual é qual.
 
 Cuidado com chave duplicada — o Lua sobrescreve calado em vez de dar erro, então um erro de copiar e colar faz uma entrada sumir sem nenhum aviso.
 
@@ -127,7 +133,7 @@ Todas as chaves precisam existir em todos os blocos.
 ## Ideias pro futuro
 
 - [ ] Investigar se buffs de player inimigo são legíveis via `GetUnitBuffInfo("reticleover", ...)` — as fontes se contradizem, precisa de teste no jogo
-- [ ] Indicador de imunidade de CC do alvo, se o item acima for viável
+- [ ] Indicador de imunidade de CC do alvo, se o item acima for viável (uma primeira tentativa foi removida por não funcionar de forma confiável)
 - [ ] Detectar o cast em vez do efeito já aplicado, pra ganhar tempo de reação
 - [ ] Flash na tela inteira como alternativa ao texto central (pega melhor a visão periférica)
 - [ ] Aviso de ID duplicado na tabela `WATCH`

@@ -54,7 +54,7 @@ FossAlert.STRINGS = {
         BTN_IMMUNE      = "Check CC immunity state",
 
         -- mensagens de chat
-        MSG_LOADED      = "v0.6 loaded. Type /foss to open settings.",
+        MSG_LOADED      = "v1.0 loaded. Type /foss to open settings.",
         MSG_POS_SAVED   = "position saved (%d, %d)",
         MSG_UNLOCKED    = "UNLOCKED - close settings and drag it where you want",
         MSG_LOCKED      = "locked",
@@ -114,7 +114,7 @@ FossAlert.STRINGS = {
 
         BTN_IMMUNE      = "Ver estado da imunidade",
 
-        MSG_LOADED      = "v0.6 carregado. Digite /foss pra abrir as opções.",
+        MSG_LOADED      = "v1.0 carregado. Digite /foss pra abrir as opções.",
         MSG_POS_SAVED   = "posição salva (%d, %d)",
         MSG_UNLOCKED    = "DESTRAVADO - feche as opções e arraste onde quiser",
         MSG_LOCKED      = "travado",

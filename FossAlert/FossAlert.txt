@@ -1,8 +1,8 @@
 ## Title: FossAlert
 ## Author: Kaue
-## Version: 0.6
+## Version: 1.0
 ## APIVersion: 101044
-## Description: Warns you when Fossilize/Petrify lands on you, so you can roll the stun
+## Description: Avisa quando Fossilize/Petrify entra em voce, pra voce dar roll no stun
 ## SavedVariables: FossAlertSV
 ## DependsOn: LibAddonMenu-2.0
 

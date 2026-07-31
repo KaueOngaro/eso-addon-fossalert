@@ -1,4 +1,4 @@
--- FossAlert v0.6
+-- FossAlert v1.0
 -- Alerta quando Petrify/Fossilize/Shattering Rocks entra em voce,
 -- suprimido se voce ja estiver em imunidade de CC.
 --
@@ -14,8 +14,9 @@ local ADDON = "FossAlert"
 -- =========================================================
 
 local WATCH = {
-    [32678] = "Fossilize / Shattering Rocks",
-    [29037] = "Petrify",
+    [32678] = "1",
+    [32685] = "2",
+    [29037] = "3",
 }
 
 local CC_IMMUNITY_ID       = 28301
@@ -235,7 +236,7 @@ local function BuildMenu()
         name                = "FossAlert",
         displayName         = "|cffaa33FossAlert|r",
         author              = "Kaue",
-        version             = "0.6",
+        version             = "1.0",
         registerForRefresh  = true,
         registerForDefaults = true,
     })
@@ -248,7 +249,7 @@ local function BuildMenu()
         table.insert(langLabels, tbl.LANG_NAME)
     end
 
-    regControls(LAM, ADDON .. "_Panel", {
+    local options = {
         { type = "description", text = L.DESC },
 
         { type = "header", name = L.HDR_GENERAL },
@@ -376,7 +377,9 @@ local function BuildMenu()
                 end
             end,
         },
-    })
+    }
+
+    regControls(LAM, ADDON .. "_Panel", options)
 end
 
 -- ---------------------------------------------------------
