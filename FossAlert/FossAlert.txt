@@ -7,4 +7,6 @@
 ## DependsOn: LibAddonMenu-2.0
 
 Locale.lua
-FossAlert.lua
+FossilizeAlert.lua
+SquishyDetector.lua
+Main.lua

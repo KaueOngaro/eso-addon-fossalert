@@ -38,7 +38,9 @@ Documentos/Elder Scrolls Online/live/AddOns/
 ├── FossAlert/
 │   ├── FossAlert.txt
 │   ├── Locale.lua
-│   └── FossAlert.lua
+│   ├── FossilizeAlert.lua
+│   ├── SquishyDetector.lua
+│   └── Main.lua
 └── LibAddonMenu-2.0/
     └── ...
 ```
@@ -89,7 +91,7 @@ Os IDs mudam entre patches. Se o addon parar de disparar depois de uma atualiza�
 2. Tome a habilidade algumas vezes — duelo é o ideal, porque Cyrodiil inunda o log
 3. Todo efeito que entrar em você aparece no chat com o ID
 4. O **primeiro** ID da sequência é o encase, que é o gatilho
-5. Adicione na tabela `WATCH` no topo do `FossAlert.lua`
+5. Adicione na tabela `WATCH` no topo do `FossilizeAlert.lua`
 6. `/reloadui` e desligue o sniffer
 
 ```lua
@@ -168,7 +170,7 @@ quem já foi confirmado como jogador), não as médias aprendidas.
 
 ## Adicionando um idioma
 
-Copie qualquer bloco do `Locale.lua`, troque a chave e traduza os valores. O dropdown de idioma se monta sozinho a partir dessa tabela, então você nunca precisa mexer no `FossAlert.lua`.
+Copie qualquer bloco do `Locale.lua`, troque a chave e traduza os valores. O dropdown de idioma se monta sozinho a partir dessa tabela, então você nunca precisa mexer nos outros arquivos `.lua`.
 
 ```lua
 FossAlert.STRINGS = {
