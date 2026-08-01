@@ -1,18 +1,18 @@
 # FossAlert
 
-Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** entra em você, dando tempo de dar roll dodge antes do stun.
+Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** te acerta, dando tempo de dar roll dodge antes do stun.
 
-Desde a Update 49 essas habilidades não stunam mais na hora. Elas te encasulam por **1 segundo** (snare de 50% + Minor Breach) e só depois vem o stun de 4 segundos — e esse stun agora **pode ser esquivado**. Esse 1 segundo é o motivo do addon existir: o aviso visual do jogo é fácil de perder no meio da briga, então o FossAlert torna impossível não ver.
+Desde a Update 49 essas habilidades não stunam mais na hora. Elas te deixam lento por **1 segundo** (snare de 50% + Minor Breach) e só depois vem o stun de 4 segundos — e esse stun agora **pode ser esquivado**. Esse 1 segundo é o motivo do addon existir: o aviso visual do jogo é fácil de perder no meio da briga, então o FossAlert torna impossível não ver.
 
 ---
 
 ## Funcionalidades
 
-- Alerta grande na tela no instante em que o efeito entra
+- Alerta grande na tela no instante em que o efeito te acerta
 - Rajada de som repetido (padrão 3x, ~70ms de intervalo) pra destacar do áudio de combate
 - **Fica quieto se você já estiver com imunidade de CC** — não queima roll à toa
 - Totalmente movível e customizável (texto, tamanho, cor, duração)
-- **Squishy Detector**: aprende sozinho a média de dano de cada habilidade sua e classifica quem você mirar em Super Light/Light/Medium/Heavy/Super Heavy, com a cor da etiqueta em gradiente contínuo (verde = alvo prioritário, vermelho = evite), sem precisar configurar nada
+- **Squishy Detector**: aprende sozinho a média de dano de cada habilidade e classifica quem você mirar em cinco níveis (de Super Light a Super Heavy), com a cor da etiqueta em gradiente contínuo — verde pra alvo prioritário, vermelho pra tanque — sem precisar configurar nada
 - Português e inglês, com detecção automática
 - Sniffer de abilityId embutido pra achar IDs novos depois de cada patch
 
@@ -108,55 +108,60 @@ Cuidado com chave duplicada — o Lua sobrescreve calado em vez de dar erro, ent
 
 ## Squishy Detector
 
-Classifica alvos em 5 níveis, do mais esquichy pro mais tanque — **Super Light,
-Light, Medium, Heavy, Super Heavy** (os rótulos ficam sempre em inglês, mesmo
-com o cliente em português) — com base em quanto cada hit seu foge da sua
-própria média de dano, e mostra uma etiqueta perto do centro da tela quando
-você mira um alvo já classificado. A cor da etiqueta segue um gradiente
-contínuo direto do score (não do nível): **verde** pros alvos esquichy
-(prioridade de ataque) até **vermelho** pros alvos tanque (evite perder tempo
+Classifica alvos em 5 níveis, do mais esquichy pro mais tanque — **Super
+Light, Light, Medium, Heavy, Super Heavy** (os rótulos ficam sempre em inglês,
+mesmo com o cliente em português) — com base em quanto cada hit seu se desvia
+da sua própria média de dano, e mostra uma etiqueta perto do centro da tela
+quando você mira um alvo já classificado. A cor da etiqueta segue um gradiente
+contínuo direto do score, não do nível: **verde** nos alvos esquichy
+(prioridade de ataque), **vermelho** nos alvos tanque (evite perder tempo
 neles).
 
 **Não precisa escolher skill nem calibrar nada.** O addon aprende sozinho: pra
-cada habilidade sua (separado por tipo de hit — normal, crítico, tick de DoT),
-ele guarda uma média móvel do dano causado. Cada hit novo é comparado contra
-essa média:
+cada habilidade sua (separada por tipo de hit — normal, crítico, tick de DoT),
+ele guarda uma média móvel do dano causado. Cada hit novo é comparado com essa
+média:
 
-- Hit **acima** da sua média = o alvo tomou mais dano que o normal → mais
-  esquichy (Paper/Light)
-- Hit **abaixo** da sua média = o alvo mitigou mais que o normal → mais tanque
-  (Heavy/Medium)
+- Hit **acima** da média = o alvo tomou mais dano que o normal → mais esquichy
+  (Super Light/Light)
+- Hit **abaixo** da média = o alvo mitigou mais que o normal → mais tanque
+  (Heavy/Super Heavy)
 
-O score também é ajustado pela **vida máxima do alvo** (um hit médio contra
-alguém com vida baixa pesa mais que o mesmo hit contra alguém com vida alta), e
-suavizado ao longo de vários hits no mesmo alvo pra não pipocar de categoria a
-cada hit isolado (crítico, resistido, etc.).
+O score também é ajustado pela **vida máxima do alvo** (o mesmo hit pesa mais
+contra alguém com vida baixa do que contra alguém com vida alta), e é
+suavizado ao longo de vários hits no mesmo alvo pra não ficar trocando de
+categoria a cada hit isolado (crítico, resistido, etc.).
 
 **Como usar:**
 
 1. Ative **Squishy Detector** no painel (`Settings → Addons → FossAlert`)
 2. Lute normalmente — os primeiros hits de cada habilidade servem só pra
-   aprender a média (é preciso pelo menos 3 amostras antes do score ficar
-   confiável)
-3. Mire um alvo que você já bateu: a etiqueta aparece com a cor da categoria e
+   aprender a média (são necessárias pelo menos 3 amostras antes do score
+   ficar confiável)
+3. Mire um alvo que você já bateu: a etiqueta aparece com a cor do momento e
    some sozinha depois do tempo configurado em **"Leitura expira depois de"**
-4. Se quiser, ajuste os sliders de score (em %, 100% = exatamente a sua média
-   aprendida) — os defaults (92/102/112%) já vêm calibrados pra fazer sentido
-   sem mexer em nada
+4. Se quiser, ajuste os sliders de score (em %, onde 100% é exatamente a sua
+   média aprendida) — os defaults (85/95/105/115%) já vêm calibrados pra fazer
+   sentido sem mexer em nada
 
 As médias aprendidas ficam salvas entre sessões (`squishBaselines`), então o
 addon fica mais preciso com o tempo em vez de resetar a cada login. O botão
-**"Resetar dados"** limpa só as classificações de alvo atuais, não as médias
-aprendidas.
+**"Resetar dados"** limpa só as classificações dos alvos atuais (e o cache de
+quem já foi confirmado como jogador), não as médias aprendidas.
 
 **Limitações:**
 
-- Só conta dano contra **jogadores inimigos** — não dá pra "treinar" batendo
-  num boneco de treino
+- Só conta dano contra **jogadores inimigos**, nunca NPC — mas pra confirmar
+  isso o addon precisa te ver mirando no alvo pelo menos uma vez (usa
+  `IsUnitPlayer` no reticulo). Depois de confirmado, ele "lembra" esse nome
+  pelo resto da sessão e continua contando os hits mesmo fora da mira — ou
+  seja, não dá pra "treinar" batendo num boneco de treino, e o primeiro hit
+  num alvo totalmente fora da mira (por exemplo um AOE em alguém que você
+  nunca olhou) ainda não conta
 - Uma habilidade nova (ou uma que você quase nunca usa) ainda não tem média
   suficiente — os primeiros hits dela contam como neutros (score ~1.0) até
   acumular pelo menos 3 amostras
-- Ajuste da vida do alvo só é possível enquanto você está mirando nele no
+- O ajuste pela vida do alvo só é possível enquanto você está mirando nele no
   momento do hit — dano em alvo fora da mira usa um fator neutro
 
 ---

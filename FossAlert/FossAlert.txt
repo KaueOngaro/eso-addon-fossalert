@@ -2,7 +2,7 @@
 ## Author: Kaue
 ## Version: 1.1
 ## APIVersion: 101044
-## Description: Avisa quando Fossilize/Petrify entra em voce, pra voce dar roll no stun. Inclui Squishy Detector.
+## Description: Avisa quando Fossilize/Petrify te acerta, pra voce dar roll no stun. Inclui Squishy Detector.
 ## SavedVariables: FossAlertSV
 ## DependsOn: LibAddonMenu-2.0
 

@@ -8,7 +8,7 @@
 - Médias aprendidas por habilidade persistem entre sessões
 
 ## 1.0
-- Alerta na tela quando Petrify / Fossilize / Shattering Rocks entra em você
+- Alerta na tela quando Petrify / Fossilize / Shattering Rocks te acerta
 - Rajada de som configurável (repetições e intervalo)
 - Suprime o alerta quando você já está com imunidade de CC
 - Painel de configuração via LibAddonMenu-2.0

@@ -1,10 +1,10 @@
 -- FossAlert v1.1
--- Alerta quando Petrify/Fossilize/Shattering Rocks entra em voce,
+-- Alerta quando Petrify/Fossilize/Shattering Rocks te acerta,
 -- suprimido se voce ja estiver em imunidade de CC.
 -- Tambem inclui o Squishy Detector: aprende sozinho a media de dano de
--- cada habilidade sua e classifica alvos mirados em paper/light/medium/
--- heavy com base em quanto cada hit desvia dessa media (ajustado pela
--- vida do alvo).
+-- cada habilidade sua e classifica alvos mirados em super light/light/
+-- medium/heavy/super heavy com base em quanto cada hit desvia dessa
+-- media (ajustado pela vida do alvo).
 --
 -- Configuracao: /foss  (ou Settings > Addons > FossAlert)
 -- Textos ficam em Locale.lua
@@ -83,6 +83,7 @@ local alertTLW, alertLabel, alertBackdrop
 
 local playerName            -- nome do player, normalizado, cacheado no load
 local squishData    = {}    -- [nomeNormalizado] = { value, time, tier, score, hits, maxHealth }
+local squishKnownPlayers = {} -- [nomeNormalizado] = true, confirmado via IsUnitPlayer no reticulo
 local squishToken   = 0     -- invalida callbacks de expiracao obsoletos
 local squishUnlocked = false
 local squishTLW, squishLabel, squishBackdrop
@@ -458,10 +459,22 @@ local function OnSquishCombatEvent(_, result, isError, abilityName, abilityGraph
     if not target then return end
 
     -- COMBAT_UNIT_TYPE_PLAYER significa "eu mesmo", nao "qualquer jogador",
-    -- entao nao da pra usar targetType pra filtrar "so jogadores inimigos"
-    -- (o combat event nao expoe isso). Aceita dano contra qualquer alvo;
-    -- quando o alvo bate com o reticulo, aproveita pra ler a vida dele.
+    -- entao nao da pra usar targetType pra saber se o alvo e um jogador
+    -- inimigo (o combat event nao expoe isso). Em vez disso, confirma via
+    -- IsUnitPlayer sempre que o alvo bate com o reticulo, e "lembra" quem
+    -- ja foi confirmado jogador pra continuar contando os hits mesmo fora
+    -- da mira. NPC nunca entra nessa lista, entao fica de fora pra sempre.
     local reticleNow = DoesUnitExist("reticleover") and NormalizeName(GetUnitName("reticleover")) == target
+
+    if reticleNow then
+        if IsUnitPlayer("reticleover") then
+            squishKnownPlayers[target] = true
+        else
+            return
+        end
+    end
+
+    if not squishKnownPlayers[target] then return end
 
     if sv.sniffing then
         Msg(string.format("[squish raw] %s -> %s  id=%d  dano=%d",
@@ -752,6 +765,7 @@ local function BuildMenu()
             name     = L.BTN_SQUISH_RESET,
             func     = function()
                 squishData = {}
+                squishKnownPlayers = {}
                 squishToken = squishToken + 1
                 HideSquishLabel()
                 Msg(L.MSG_SQUISH_RESET)

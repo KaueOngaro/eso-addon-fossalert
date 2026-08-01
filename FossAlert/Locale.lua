@@ -108,7 +108,7 @@ FossAlert.STRINGS = {
     pt = {
         LANG_NAME       = "Português",
 
-        DESC            = "Avisa na tela quando um Fossilize/Petrify entra em você, " ..
+        DESC            = "Avisa na tela quando um Fossilize/Petrify te acerta, " ..
                           "dando tempo de rolar antes do stun. Fica quieto se você já " ..
                           "estiver com imunidade de CC.",
 
@@ -123,7 +123,7 @@ FossAlert.STRINGS = {
         LANG_AUTO       = "Automático (idioma do cliente)",
 
         ALERT_TEXT      = "Texto do alerta",
-        ALERT_TEXT_TT   = "O que aparece na tela quando o efeito entra.",
+        ALERT_TEXT_TT   = "O que aparece na tela quando o efeito te acerta.",
         DEFAULT_ALERT   = "ROLA!",
 
         FONT_SIZE       = "Tamanho da fonte",
@@ -147,7 +147,7 @@ FossAlert.STRINGS = {
                           "intervalo curto só embola tudo.",
 
         SNIFFER         = "Sniffer de abilityId",
-        SNIFFER_TT      = "Printa no chat todo efeito que entra em você, com o ID. " ..
+        SNIFFER_TT      = "Printa no chat todo efeito aplicado em você, com o ID. " ..
                           "Use pra descobrir IDs novos. Deixe DESLIGADO no dia a dia.",
 
         BTN_IMMUNE      = "Ver estado da imunidade",
