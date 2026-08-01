@@ -75,6 +75,12 @@ FossAlert.STRINGS = {
                           "Anything at or above it is Super Light (priority target). The label's color " ..
                           "also follows a red (Super Heavy) to green (Super Light) gradient based on the " ..
                           "exact score, not just the tier. Keep Super Heavy max < Heavy max < Medium max < Light max.",
+        SQUISH_DISPLAY_MODE = "Display mode",
+        SQUISH_DISPLAY_MODE_TT = "Text shows the tier name (SUPER LIGHT, LIGHT, etc). Bars shows a 5-segment " ..
+                          "signal-strength style meter next to the reticle instead (like a ping/signal " ..
+                          "indicator), using the same color gradient, without text.",
+        SQUISH_DISPLAY_MODE_TEXT = "Text",
+        SQUISH_DISPLAY_MODE_BARS = "Colored bars",
         SQUISH_EXPIRE   = "Reading expires after (s)",
         SQUISH_EXPIRE_TT= "How long a target's classification stays valid without a new hit.",
         BTN_SQUISH_MOVE = "Move label",
@@ -173,6 +179,12 @@ FossAlert.STRINGS = {
                           "Igual ou acima disso vira Super Light (alvo prioritário). A cor da etiqueta " ..
                           "também segue um gradiente vermelho (Super Heavy) até verde (Super Light) direto " ..
                           "pelo score, não só pelo nível. Mantenha máx. Super Heavy < máx. Heavy < máx. Medium < máx. Light.",
+        SQUISH_DISPLAY_MODE = "Modo de exibição",
+        SQUISH_DISPLAY_MODE_TT = "Texto mostra o nome do nível (SUPER LIGHT, LIGHT, etc). Barrinhas mostra " ..
+                          "um medidor de 5 barras tipo sinal de celular/ping do lado do reticulo em vez " ..
+                          "disso, com o mesmo gradiente de cor, sem texto.",
+        SQUISH_DISPLAY_MODE_TEXT = "Texto",
+        SQUISH_DISPLAY_MODE_BARS = "Barrinhas coloridas",
         SQUISH_EXPIRE   = "Leitura expira depois de (s)",
         SQUISH_EXPIRE_TT= "Quanto tempo a classificação de um alvo continua válida sem novo hit.",
         BTN_SQUISH_MOVE = "Mover etiqueta",

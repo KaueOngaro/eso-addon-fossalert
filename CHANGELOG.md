@@ -6,6 +6,8 @@
 - Etiqueta colorida perto do reticulo, movível via `/foss squishmove` ou botão no painel
 - Sliders de score (%) e tempo de expiração da leitura configuráveis no painel
 - Médias aprendidas por habilidade persistem entre sessões
+- Modo de exibição configurável: texto (nível) ou barrinhas coloridas tipo medidor de sinal — quanto mais barra acesa (e mais vermelha), mais mitigação o alvo tem
+- Etiqueta/barrinhas somem na hora se o alvo mirado morrer
 
 ## 1.0
 - Alerta na tela quando Petrify / Fossilize / Shattering Rocks te acerta

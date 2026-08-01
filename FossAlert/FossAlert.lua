@@ -31,6 +31,19 @@ local CC_IMMUNITY_FALLBACK = 7000
 -- (SQUISH_TIER), mas a cor segue o score direto, sem degraus.
 local SQUISH_COLOR_TANK   = { 0.90, 0.20, 0.20 }
 local SQUISH_COLOR_SQUISHY = { 0.45, 0.85, 0.35 }
+local SQUISH_COLOR_UNLIT  = { 0.30, 0.30, 0.30, 0.35 }
+
+-- modo "barrinhas": medidor tipo sinal de celular/ping, altura crescente.
+-- quanto mais barra acesa (e mais vermelho), mais mitigacao o alvo tem;
+-- esquichy acende so a primeira (verde).
+local SQUISH_BAR_HEIGHTS = { 14, 20, 26, 32, 38 }
+local SQUISH_TIER_ORDER = {
+    superheavy = 5,
+    heavy      = 4,
+    medium     = 3,
+    light      = 2,
+    superlight = 1,
+}
 
 -- vida "de referencia" usada pra normalizar o score: um alvo com vida
 -- abaixo disso fica mais esquichy pelo mesmo dano, e vice-versa.
@@ -60,6 +73,7 @@ local defaults = {
     squishScoreMediumMax     = 1.05,  -- abaixo disso (e >= heavy) = medium
     squishScoreLightMax      = 1.15,  -- abaixo disso (e >= medium) = light; >= isso = super light (mais esquichy)
     squishExpireSeconds   = 8,
+    squishDisplayMode     = "text",  -- "text" ou "bars"
     squishX               = nil,
     squishY               = nil,
     squishBaselines       = {},    -- [abilityId:tipoDeHit] = { average, samples } -- persiste entre sessoes
@@ -87,6 +101,7 @@ local squishKnownPlayers = {} -- [nomeNormalizado] = true, confirmado via IsUnit
 local squishToken   = 0     -- invalida callbacks de expiracao obsoletos
 local squishUnlocked = false
 local squishTLW, squishLabel, squishBackdrop
+local squishBars = {} -- 5 segmentos tipo medidor de sinal, altura crescente
 
 -- ---------------------------------------------------------
 -- idioma
@@ -251,6 +266,14 @@ local function ApplySquishPosition()
     end
 end
 
+local function ApplySquishDisplayMode()
+    local isBars = sv.squishDisplayMode == "bars"
+    squishLabel:SetHidden(isBars)
+    for i = 1, #squishBars do
+        squishBars[i]:SetHidden(not isBars)
+    end
+end
+
 local function PlayAlertSound()
     if not sv.sound then return end
 
@@ -344,6 +367,22 @@ local function CreateSquishUI()
     squishLabel:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
     squishLabel:SetFont("$(BOLD_FONT)|28|soft-shadow-thick")
 
+    local barWidth, barGap = 8, 4
+    local totalWidth = (#SQUISH_BAR_HEIGHTS * barWidth) + ((#SQUISH_BAR_HEIGHTS - 1) * barGap)
+    local startX = -totalWidth / 2 + barWidth / 2
+
+    for i = 1, #SQUISH_BAR_HEIGHTS do
+        local bar = wm:CreateControl(ADDON .. "_SquishBar" .. i, squishTLW, CT_BACKDROP)
+        bar:SetDimensions(barWidth, SQUISH_BAR_HEIGHTS[i])
+        bar:SetAnchor(BOTTOM, squishTLW, CENTER, startX + (i - 1) * (barWidth + barGap), 20)
+        bar:SetEdgeColor(1, 1, 1, 0.5)
+        bar:SetEdgeTexture("", 1, 1, 2)
+        bar:SetHidden(true)
+        squishBars[i] = bar
+    end
+
+    ApplySquishDisplayMode()
+
     squishTLW:SetHandler("OnMoveStop", function()
         sv.squishX = squishTLW:GetLeft()
         sv.squishY = squishTLW:GetTop()
@@ -362,7 +401,18 @@ local function ToggleSquishUnlock()
     squishTLW:SetMouseEnabled(squishUnlocked)
     squishBackdrop:SetHidden(not squishUnlocked)
     squishTLW:SetHidden(not squishUnlocked)
-    squishLabel:SetText(squishUnlocked and "<< >>" or "")
+
+    if squishUnlocked then
+        -- mostra sempre o texto placeholder enquanto arrasta, independente do modo
+        squishLabel:SetHidden(false)
+        squishLabel:SetText("<< >>")
+        for i = 1, #squishBars do
+            squishBars[i]:SetHidden(true)
+        end
+    else
+        squishLabel:SetText("")
+        ApplySquishDisplayMode()
+    end
 
     Msg(squishUnlocked and L.MSG_UNLOCKED or L.MSG_LOCKED)
 
@@ -376,7 +426,8 @@ local function RefreshReticleLabel()
     squishToken = squishToken + 1
     local myToken = squishToken
 
-    if not sv.squishEnabled or squishUnlocked or not DoesUnitExist("reticleover") then
+    if not sv.squishEnabled or squishUnlocked or not DoesUnitExist("reticleover")
+            or IsUnitDead("reticleover") then
         HideSquishLabel()
         return
     end
@@ -400,6 +451,17 @@ local function RefreshReticleLabel()
     local r, g, b = GetSquishColor(entry.score or 1)
     squishLabel:SetText(L.SQUISH_TIER[entry.tier])
     squishLabel:SetColor(r, g, b, 1)
+
+    local litCount = SQUISH_TIER_ORDER[entry.tier] or 3
+    for i = 1, #squishBars do
+        if i <= litCount then
+            squishBars[i]:SetCenterColor(r, g, b, 1)
+        else
+            squishBars[i]:SetCenterColor(SQUISH_COLOR_UNLIT[1], SQUISH_COLOR_UNLIT[2],
+                SQUISH_COLOR_UNLIT[3], SQUISH_COLOR_UNLIT[4])
+        end
+    end
+
     squishTLW:SetHidden(false)
 
     zo_callLater(function()
@@ -743,6 +805,20 @@ local function BuildMenu()
             disabled = function() return not sv.squishEnabled end,
         },
         {
+            type          = "dropdown",
+            name          = L.SQUISH_DISPLAY_MODE,
+            tooltip       = L.SQUISH_DISPLAY_MODE_TT,
+            choices       = { L.SQUISH_DISPLAY_MODE_TEXT, L.SQUISH_DISPLAY_MODE_BARS },
+            choicesValues = { "text", "bars" },
+            default       = defaults.squishDisplayMode,
+            getFunc       = function() return sv.squishDisplayMode end,
+            setFunc       = function(v)
+                sv.squishDisplayMode = v
+                ApplySquishDisplayMode()
+            end,
+            disabled      = function() return not sv.squishEnabled end,
+        },
+        {
             type     = "slider",
             name     = L.SQUISH_EXPIRE,
             tooltip  = L.SQUISH_EXPIRE_TT,
@@ -823,6 +899,9 @@ local function OnLoaded(_, addonName)
         REGISTER_FILTER_UNIT_TAG, "player")
 
     EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_RETICLE_TARGET_CHANGED, RefreshReticleLabel)
+    EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_UNIT_DEATH_STATE_CHANGED, function(_, unitTag)
+        if unitTag == "reticleover" then RefreshReticleLabel() end
+    end)
 
     SyncSquishFilter()
 
