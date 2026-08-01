@@ -12,6 +12,7 @@ Desde a Update 49 essas habilidades não stunam mais na hora. Elas te encasulam 
 - Rajada de som repetido (padrão 3x, ~70ms de intervalo) pra destacar do áudio de combate
 - **Fica quieto se você já estiver com imunidade de CC** — não queima roll à toa
 - Totalmente movível e customizável (texto, tamanho, cor, duração)
+- **Squishy Detector**: aprende sozinho a média de dano de cada habilidade sua e classifica quem você mirar em Super Light/Light/Medium/Heavy/Super Heavy, com a cor da etiqueta em gradiente contínuo (verde = alvo prioritário, vermelho = evite), sem precisar configurar nada
 - Português e inglês, com detecção automática
 - Sniffer de abilityId embutido pra achar IDs novos depois de cada patch
 
@@ -56,6 +57,7 @@ Dois erros clássicos de instalação:
 | `/foss` | Abre o painel de configuração |
 | `/foss move` | Destrava o alerta pra arrastar, e trava de novo |
 | `/foss test` | Dispara o alerta pra conferir posição e som |
+| `/foss squishmove` | Destrava a etiqueta do Squishy Detector pra arrastar, e trava de novo |
 
 O resto está no painel: **Settings → Addons → FossAlert**.
 
@@ -104,6 +106,61 @@ Cuidado com chave duplicada — o Lua sobrescreve calado em vez de dar erro, ent
 
 ---
 
+## Squishy Detector
+
+Classifica alvos em 5 níveis, do mais esquichy pro mais tanque — **Super Light,
+Light, Medium, Heavy, Super Heavy** (os rótulos ficam sempre em inglês, mesmo
+com o cliente em português) — com base em quanto cada hit seu foge da sua
+própria média de dano, e mostra uma etiqueta perto do centro da tela quando
+você mira um alvo já classificado. A cor da etiqueta segue um gradiente
+contínuo direto do score (não do nível): **verde** pros alvos esquichy
+(prioridade de ataque) até **vermelho** pros alvos tanque (evite perder tempo
+neles).
+
+**Não precisa escolher skill nem calibrar nada.** O addon aprende sozinho: pra
+cada habilidade sua (separado por tipo de hit — normal, crítico, tick de DoT),
+ele guarda uma média móvel do dano causado. Cada hit novo é comparado contra
+essa média:
+
+- Hit **acima** da sua média = o alvo tomou mais dano que o normal → mais
+  esquichy (Paper/Light)
+- Hit **abaixo** da sua média = o alvo mitigou mais que o normal → mais tanque
+  (Heavy/Medium)
+
+O score também é ajustado pela **vida máxima do alvo** (um hit médio contra
+alguém com vida baixa pesa mais que o mesmo hit contra alguém com vida alta), e
+suavizado ao longo de vários hits no mesmo alvo pra não pipocar de categoria a
+cada hit isolado (crítico, resistido, etc.).
+
+**Como usar:**
+
+1. Ative **Squishy Detector** no painel (`Settings → Addons → FossAlert`)
+2. Lute normalmente — os primeiros hits de cada habilidade servem só pra
+   aprender a média (é preciso pelo menos 3 amostras antes do score ficar
+   confiável)
+3. Mire um alvo que você já bateu: a etiqueta aparece com a cor da categoria e
+   some sozinha depois do tempo configurado em **"Leitura expira depois de"**
+4. Se quiser, ajuste os sliders de score (em %, 100% = exatamente a sua média
+   aprendida) — os defaults (92/102/112%) já vêm calibrados pra fazer sentido
+   sem mexer em nada
+
+As médias aprendidas ficam salvas entre sessões (`squishBaselines`), então o
+addon fica mais preciso com o tempo em vez de resetar a cada login. O botão
+**"Resetar dados"** limpa só as classificações de alvo atuais, não as médias
+aprendidas.
+
+**Limitações:**
+
+- Só conta dano contra **jogadores inimigos** — não dá pra "treinar" batendo
+  num boneco de treino
+- Uma habilidade nova (ou uma que você quase nunca usa) ainda não tem média
+  suficiente — os primeiros hits dela contam como neutros (score ~1.0) até
+  acumular pelo menos 3 amostras
+- Ajuste da vida do alvo só é possível enquanto você está mirando nele no
+  momento do hit — dano em alvo fora da mira usa um fator neutro
+
+---
+
 ## Adicionando um idioma
 
 Copie qualquer bloco do `Locale.lua`, troque a chave e traduza os valores. O dropdown de idioma se monta sozinho a partir dessa tabela, então você nunca precisa mexer no `FossAlert.lua`.
@@ -135,6 +192,8 @@ Todas as chaves precisam existir em todos os blocos.
 - [ ] Detectar o cast em vez do efeito já aplicado, pra ganhar tempo de reação
 - [ ] Flash na tela inteira como alternativa ao texto central (pega melhor a visão periférica)
 - [ ] Aviso de ID duplicado na tabela `WATCH`
+- [ ] Cor e tamanho de fonte configuráveis pra etiqueta do Squishy Detector
+- [ ] Comando pra ver as médias aprendidas do Squishy Detector (hoje só dá pra ver ligando o sniffer)
 
 ---
 
