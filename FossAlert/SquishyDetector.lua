@@ -437,7 +437,7 @@ function M.SetLocale(newL)
 end
 
 function M.BuildPanelOptions()
-    return {
+    local options = {
         { type = "header", name = L.HDR_SQUISHY },
         { type = "description", text = L.SQUISH_DESC },
         {
@@ -538,6 +538,8 @@ function M.BuildPanelOptions()
             disabled = function() return not sv.squishEnabled end,
         },
     }
+
+    return options
 end
 
 function M.HandleSlashCommand(arg)

@@ -1,6 +1,7 @@
 -- FossAlert v1.1
 -- Composition root: cria SavedVars/locale, inicializa os modulos de feature
--- (FossilizeAlert, SquishyDetector), monta o painel e roteia o slash command.
+-- (FossilizeAlert, SquishyDetector, Trackers), monta o painel e roteia o
+-- slash command.
 --
 -- Configuracao: /foss  (ou Settings > Addons > FossAlert)
 -- Textos ficam em Locale.lua
@@ -100,6 +101,7 @@ local function BuildMenu()
                 L = ResolveLocale()
                 FossAlert.FossilizeAlert.SetLocale(L)
                 FossAlert.SquishyDetector.SetLocale(L)
+                FossAlert.Trackers.SetLocale(L)
                 Msg(L.MSG_NEEDS_RELOAD)
             end,
         },
@@ -107,6 +109,7 @@ local function BuildMenu()
 
     AppendAll(options, FossAlert.FossilizeAlert.BuildPanelOptions())
     AppendAll(options, FossAlert.SquishyDetector.BuildPanelOptions())
+    AppendAll(options, FossAlert.Trackers.BuildPanelOptions())
 
     table.insert(options, { type = "header", name = L.HDR_DEBUG })
     table.insert(options, {
@@ -131,12 +134,14 @@ local function OnLoaded(_, addonName)
     local defaults = { locale = "auto", sniffing = false }
     MergeDefaultsInto(defaults, FossAlert.FossilizeAlert.defaults)
     MergeDefaultsInto(defaults, FossAlert.SquishyDetector.defaults)
+    MergeDefaultsInto(defaults, FossAlert.Trackers.defaults)
 
     sv = ZO_SavedVars:NewAccountWide("FossAlertSV", 1, nil, defaults)
     L  = ResolveLocale()
 
     FossAlert.FossilizeAlert.Initialize(sv, L)
     FossAlert.SquishyDetector.Initialize(sv, L)
+    FossAlert.Trackers.Initialize(sv, L)
 
     BuildMenu()
 
@@ -146,6 +151,8 @@ local function OnLoaded(_, addonName)
         if FossAlert.FossilizeAlert.HandleSlashCommand(args) then
             return
         elseif FossAlert.SquishyDetector.HandleSlashCommand(args) then
+            return
+        elseif FossAlert.Trackers.HandleSlashCommand(args) then
             return
         elseif panelRef and LAM and LAM.OpenToPanel then
             LAM:OpenToPanel(panelRef)

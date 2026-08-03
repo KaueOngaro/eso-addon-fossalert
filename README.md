@@ -13,6 +13,7 @@ Desde a Update 49 essas habilidades não stunam mais na hora. Elas te deixam len
 - **Fica quieto se você já estiver com imunidade de CC** — não queima roll à toa
 - Totalmente movível e customizável (texto, tamanho, cor, duração)
 - **Squishy Detector**: aprende sozinho a média de dano de cada habilidade e classifica quem você mirar em cinco níveis (de Super Light a Super Heavy), com a cor da etiqueta em gradiente contínuo — verde pra alvo prioritário, vermelho pra tanque — sem precisar configurar nada
+- **Trackers**: feature independente que vigia até 5 buffs/debuffs customizados (ex: Minor Mangle) e avisa quando o alvo mirado estiver com eles
 - Português e inglês, com detecção automática
 - Sniffer de abilityId embutido pra achar IDs novos depois de cada patch
 
@@ -40,6 +41,7 @@ Documentos/Elder Scrolls Online/live/AddOns/
 │   ├── Locale.lua
 │   ├── FossilizeAlert.lua
 │   ├── SquishyDetector.lua
+│   ├── Trackers.lua
 │   └── Main.lua
 └── LibAddonMenu-2.0/
     └── ...
@@ -60,6 +62,7 @@ Dois erros clássicos de instalação:
 | `/foss move` | Destrava o alerta pra arrastar, e trava de novo |
 | `/foss test` | Dispara o alerta pra conferir posição e som |
 | `/foss squishmove` | Destrava a etiqueta do Squishy Detector pra arrastar, e trava de novo |
+| `/foss trackermove` | Destrava a lista de trackers pra arrastar, e trava de novo |
 
 O resto está no painel: **Settings → Addons → FossAlert**.
 
@@ -165,6 +168,29 @@ quem já foi confirmado como jogador), não as médias aprendidas.
   acumular pelo menos 3 amostras
 - O ajuste pela vida do alvo só é possível enquanto você está mirando nele no
   momento do hit — dano em alvo fora da mira usa um fator neutro
+
+---
+
+## Trackers
+
+Feature independente do Squishy Detector — não precisa dele ativado, só do
+reticulo. Vigia até 5 nomes de buff/debuff no alvo mirado e, sempre que um
+deles estiver ativo, mostra uma etiqueta com o nome numa lista empilhada,
+numa janela própria e movível (`/foss trackermove` ou botão no painel).
+
+**Como usar:**
+
+1. Ative **Trackers** no painel (`Settings → Addons → FossAlert` → seção
+   Trackers)
+2. Preencha "Tracker 1" a "Tracker 5" com o nome exato do buff/debuff que
+   quer vigiar (o nome precisa bater com o que aparece no jogo — o client só
+   tem inglês). Slot vazio = desativado
+3. Mire um alvo que tenha algum deles ativo: a etiqueta aparece na hora
+
+Por padrão o Tracker 1 já vem preenchido com **"Minor Mangle"**; os outros 4
+slots começam vazios. A leitura é direto do buff do alvo via
+`GetUnitBuffInfo` — não depende de dano, então funciona mesmo sem nunca ter
+acertado o alvo.
 
 ---
 

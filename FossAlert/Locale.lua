@@ -18,6 +18,7 @@ FossAlert.STRINGS = {
         HDR_APPEARANCE  = "Appearance",
         HDR_SOUND       = "Sound",
         HDR_SQUISHY     = "Squishy Detector",
+        HDR_TRACKER     = "Trackers",
         HDR_DEBUG       = "Debug",
 
         LANGUAGE        = "Language",
@@ -94,6 +95,20 @@ FossAlert.STRINGS = {
             superheavy = "SUPER HEAVY",
         },
 
+        -- trackers
+        TRACKER_DESC    = "Watch for up to 5 custom buffs/debuffs (by exact name, not ID) on " ..
+                          "whoever you're aiming at, independent of the Squishy Detector. Shows a " ..
+                          "stacked tag list near the reticle for whichever ones are currently active " ..
+                          "on the target, read straight from the target's buffs via GetUnitBuffInfo " ..
+                          "-- not tied to damage.",
+        TRACKER_ENABLE  = "Enable Trackers",
+        TRACKER_ENABLE_TT = "Turns on buff/debuff watching and the tag list near the reticle.",
+        TRACKER_SLOT    = "Tracker %d (buff/debuff name)",
+        TRACKER_SLOT_TT = "Exact buff/debuff name to watch for on the targeted enemy (e.g. \"Minor Mangle\"). " ..
+                          "Leave empty to disable this slot.",
+        BTN_TRACKER_MOVE = "Move trackers",
+        BTN_TRACKER_MOVE_TT = "Unlocks the tracker tag list so you can drag it. Close settings after clicking.",
+
         -- mensagens de chat
         MSG_LOADED      = "v1.1 loaded. Type /foss to open settings.",
         MSG_POS_SAVED   = "position saved (%d, %d)",
@@ -106,7 +121,7 @@ FossAlert.STRINGS = {
         MSG_NEEDS_RELOAD= "Language changed. Type /reloadui to apply it to the menu.",
         MSG_NO_LAM      = "LibAddonMenu-2.0 not found. The addon still works, but there is no options panel.",
         MSG_BAD_LAM     = "Incompatible LibAddonMenu. Run this in chat:",
-        MSG_CMDS        = "commands: /foss move | /foss test | /foss squishmove",
+        MSG_CMDS        = "commands: /foss move | /foss test | /foss squishmove | /foss trackermove",
         MSG_SQUISH_RESET= "squishy data reset",
         MSG_SQUISH_HIT  = "[squish] %s: %d dmg (%s)",
     },
@@ -122,6 +137,7 @@ FossAlert.STRINGS = {
         HDR_APPEARANCE  = "Aparência",
         HDR_SOUND       = "Som",
         HDR_SQUISHY     = "Squishy Detector",
+        HDR_TRACKER     = "Trackers",
         HDR_DEBUG       = "Debug",
 
         LANGUAGE        = "Idioma",
@@ -198,6 +214,20 @@ FossAlert.STRINGS = {
             superheavy = "SUPER HEAVY",
         },
 
+        -- trackers
+        TRACKER_DESC    = "Vigia até 5 buffs/debuffs customizados (por nome exato, não ID) em " ..
+                          "quem você estiver mirando, independente do Squishy Detector. Mostra uma " ..
+                          "lista empilhada perto do reticulo com os que estiverem ativos no alvo " ..
+                          "agora, lida direto dos buffs do alvo via GetUnitBuffInfo -- não depende " ..
+                          "de dano.",
+        TRACKER_ENABLE  = "Ativar Trackers",
+        TRACKER_ENABLE_TT = "Liga a vigilância de buff/debuff e a lista perto do reticulo.",
+        TRACKER_SLOT    = "Tracker %d (nome do buff/debuff)",
+        TRACKER_SLOT_TT = "Nome exato do buff/debuff pra vigiar no inimigo mirado (ex: \"Minor Mangle\"). " ..
+                          "Deixe vazio pra desativar esse slot.",
+        BTN_TRACKER_MOVE = "Mover trackers",
+        BTN_TRACKER_MOVE_TT = "Destrava a lista de trackers pra arrastar. Feche as opções depois de clicar.",
+
         MSG_LOADED      = "v1.1 carregado. Digite /foss pra abrir as opções.",
         MSG_POS_SAVED   = "posição salva (%d, %d)",
         MSG_UNLOCKED    = "DESTRAVADO - feche as opções e arraste onde quiser",
@@ -209,7 +239,7 @@ FossAlert.STRINGS = {
         MSG_NEEDS_RELOAD= "Idioma alterado. Digite /reloadui pra aplicar no menu.",
         MSG_NO_LAM      = "LibAddonMenu-2.0 não encontrada. O addon funciona, mas sem painel de opções.",
         MSG_BAD_LAM     = "LibAddonMenu incompatível. Rode isso no chat:",
-        MSG_CMDS        = "comandos: /foss move | /foss test | /foss squishmove",
+        MSG_CMDS        = "comandos: /foss move | /foss test | /foss squishmove | /foss trackermove",
         MSG_SQUISH_RESET= "dados do squishy resetados",
         MSG_SQUISH_HIT  = "[squish] %s: %d dano (%s)",
     },
