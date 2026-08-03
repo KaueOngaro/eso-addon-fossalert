@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0
+- Addon renomeado de FossAlert pra **One Versus X**, refletindo que virou um kit de ferramentas pra lutar 1vX (não só o alerta de Fossilize)
+- Pasta/manifesto renomeados pra `one_versus_x`, namespace interno Lua também
+- Slash command trocado de `/foss` pra `/vx` (`/vx move`, `/vx test`, `/vx squishmove`, `/vx trackermove`)
+- Sem migração de configurações antigas: por causa de como o ESO nomeia o arquivo de SavedVariables (pela identidade da pasta/manifesto, não pelo nome da variável), manter os dados do FossAlert exigiria deixar a pasta antiga instalada como stub — quem já tinha o FossAlert vai começar com as configurações padrão
+
 ## 1.1
 - Squishy Detector: aprende sozinho a média de dano de cada habilidade sua e classifica alvos mirados em 5 níveis (Super Light/Light/Medium/Heavy/Super Heavy, sempre em inglês) com base no desvio dessa média, ajustado pela vida do alvo
 - Cor da etiqueta em gradiente contínuo verde→vermelho direto pelo score, não só por nível

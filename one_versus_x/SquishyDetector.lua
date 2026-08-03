@@ -2,12 +2,12 @@
 -- classifica o alvo mirado em super light/light/medium/heavy/super heavy com
 -- base em quanto cada hit desvia dessa media (ajustado pela vida do alvo).
 
-FossAlert = FossAlert or {}
-FossAlert.SquishyDetector = FossAlert.SquishyDetector or {}
-local M = FossAlert.SquishyDetector
+one_versus_x = one_versus_x or {}
+one_versus_x.SquishyDetector = one_versus_x.SquishyDetector or {}
+local M = one_versus_x.SquishyDetector
 
-local ADDON    = "FossAlert"
-local EVENT_NS = "FossAlert_Squishy"
+local ADDON    = "one_versus_x"
+local EVENT_NS = "one_versus_x_Squishy"
 
 -- gradiente continuo: vermelho no tanque (evite bater) ate verde no
 -- esquichy (alvo prioritario). O texto da etiqueta usa niveis fixos
@@ -416,7 +416,7 @@ end
 -- ---------------------------------------------------------
 
 function M.Initialize(newSv, newL)
-    sv, L, Msg = newSv, newL, FossAlert.Msg
+    sv, L, Msg = newSv, newL, one_versus_x.Msg
 
     sv.squishBaselines = sv.squishBaselines or {}
     playerName = NormalizeName(GetUnitName("player"))

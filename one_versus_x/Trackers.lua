@@ -2,12 +2,12 @@
 -- alvo mirado, e mostra uma etiqueta empilhada pra cada um que estiver ativo.
 -- Independente do Squishy Detector -- so precisa do reticulo.
 
-FossAlert = FossAlert or {}
-FossAlert.Trackers = FossAlert.Trackers or {}
-local M = FossAlert.Trackers
+one_versus_x = one_versus_x or {}
+one_versus_x.Trackers = one_versus_x.Trackers or {}
+local M = one_versus_x.Trackers
 
-local ADDON    = "FossAlert"
-local EVENT_NS = "FossAlert_Trackers"
+local ADDON    = "one_versus_x"
+local EVENT_NS = "one_versus_x_Trackers"
 
 local SLOT_COUNT  = 5
 local ROW_HEIGHT  = 22
@@ -176,7 +176,7 @@ end
 -- ---------------------------------------------------------
 
 function M.Initialize(newSv, newL)
-    sv, L, Msg = newSv, newL, FossAlert.Msg
+    sv, L, Msg = newSv, newL, one_versus_x.Msg
 
     CreateUI()
     ApplyPosition()

@@ -1,21 +1,22 @@
--- FossAlert v1.1
+-- One Versus X v2.0
 -- Composition root: cria SavedVars/locale, inicializa os modulos de feature
 -- (FossilizeAlert, SquishyDetector, Trackers), monta o painel e roteia o
 -- slash command.
 --
--- Configuracao: /foss  (ou Settings > Addons > FossAlert)
+-- Configuracao: /vx  (ou Settings > Addons > One Versus X)
 -- Textos ficam em Locale.lua
 
-FossAlert = FossAlert or {}
+one_versus_x = one_versus_x or {}
 
-local ADDON = "FossAlert"
+local ADDON       = "one_versus_x"
+local DISPLAY_NAME = "One Versus X"
 
 local sv, L, panelRef
 
 local function Msg(s)
-    d("|cffaa33[FossAlert]|r " .. s)
+    d("|cffaa33[" .. DISPLAY_NAME .. "]|r " .. s)
 end
-FossAlert.Msg = Msg
+one_versus_x.Msg = Msg
 
 local function ResolveLocale()
     local code = sv and sv.locale or "auto"
@@ -26,7 +27,7 @@ local function ResolveLocale()
         code = GetCVar("Language.2") or "en"
     end
 
-    return FossAlert.STRINGS[code] or FossAlert.STRINGS.en
+    return one_versus_x.STRINGS[code] or one_versus_x.STRINGS.en
 end
 
 local function GetLAM()
@@ -68,10 +69,10 @@ local function BuildMenu()
 
     panelRef = regPanel(LAM, ADDON .. "_Panel", {
         type                = "panel",
-        name                = "FossAlert",
-        displayName         = "|cffaa33FossAlert|r",
+        name                = DISPLAY_NAME,
+        displayName         = "|cffaa33" .. DISPLAY_NAME .. "|r",
         author              = "Kaue",
-        version             = "1.1",
+        version             = "2.0",
         registerForRefresh  = true,
         registerForDefaults = true,
     })
@@ -79,7 +80,7 @@ local function BuildMenu()
     -- monta a lista de idiomas a partir da propria tabela de strings
     local langValues = { "auto" }
     local langLabels = { L.LANG_AUTO }
-    for code, tbl in pairs(FossAlert.STRINGS) do
+    for code, tbl in pairs(one_versus_x.STRINGS) do
         table.insert(langValues, code)
         table.insert(langLabels, tbl.LANG_NAME)
     end
@@ -99,17 +100,17 @@ local function BuildMenu()
             setFunc       = function(v)
                 sv.locale = v
                 L = ResolveLocale()
-                FossAlert.FossilizeAlert.SetLocale(L)
-                FossAlert.SquishyDetector.SetLocale(L)
-                FossAlert.Trackers.SetLocale(L)
+                one_versus_x.FossilizeAlert.SetLocale(L)
+                one_versus_x.SquishyDetector.SetLocale(L)
+                one_versus_x.Trackers.SetLocale(L)
                 Msg(L.MSG_NEEDS_RELOAD)
             end,
         },
     }
 
-    AppendAll(options, FossAlert.FossilizeAlert.BuildPanelOptions())
-    AppendAll(options, FossAlert.SquishyDetector.BuildPanelOptions())
-    AppendAll(options, FossAlert.Trackers.BuildPanelOptions())
+    AppendAll(options, one_versus_x.FossilizeAlert.BuildPanelOptions())
+    AppendAll(options, one_versus_x.SquishyDetector.BuildPanelOptions())
+    AppendAll(options, one_versus_x.Trackers.BuildPanelOptions())
 
     table.insert(options, { type = "header", name = L.HDR_DEBUG })
     table.insert(options, {
@@ -120,7 +121,7 @@ local function BuildMenu()
         getFunc = function() return sv.sniffing end,
         setFunc = function(v) sv.sniffing = v end,
     })
-    AppendAll(options, FossAlert.FossilizeAlert.BuildDebugOptions())
+    AppendAll(options, one_versus_x.FossilizeAlert.BuildDebugOptions())
 
     regControls(LAM, ADDON .. "_Panel", options)
 end
@@ -132,27 +133,27 @@ local function OnLoaded(_, addonName)
     EVENT_MANAGER:UnregisterForEvent(ADDON, EVENT_ADD_ON_LOADED)
 
     local defaults = { locale = "auto", sniffing = false }
-    MergeDefaultsInto(defaults, FossAlert.FossilizeAlert.defaults)
-    MergeDefaultsInto(defaults, FossAlert.SquishyDetector.defaults)
-    MergeDefaultsInto(defaults, FossAlert.Trackers.defaults)
+    MergeDefaultsInto(defaults, one_versus_x.FossilizeAlert.defaults)
+    MergeDefaultsInto(defaults, one_versus_x.SquishyDetector.defaults)
+    MergeDefaultsInto(defaults, one_versus_x.Trackers.defaults)
 
-    sv = ZO_SavedVars:NewAccountWide("FossAlertSV", 1, nil, defaults)
+    sv = ZO_SavedVars:NewAccountWide("one_versus_xSV", 1, nil, defaults)
     L  = ResolveLocale()
 
-    FossAlert.FossilizeAlert.Initialize(sv, L)
-    FossAlert.SquishyDetector.Initialize(sv, L)
-    FossAlert.Trackers.Initialize(sv, L)
+    one_versus_x.FossilizeAlert.Initialize(sv, L)
+    one_versus_x.SquishyDetector.Initialize(sv, L)
+    one_versus_x.Trackers.Initialize(sv, L)
 
     BuildMenu()
 
-    SLASH_COMMANDS["/foss"] = function(args)
+    SLASH_COMMANDS["/vx"] = function(args)
         args = (args or ""):lower()
         local LAM = GetLAM()
-        if FossAlert.FossilizeAlert.HandleSlashCommand(args) then
+        if one_versus_x.FossilizeAlert.HandleSlashCommand(args) then
             return
-        elseif FossAlert.SquishyDetector.HandleSlashCommand(args) then
+        elseif one_versus_x.SquishyDetector.HandleSlashCommand(args) then
             return
-        elseif FossAlert.Trackers.HandleSlashCommand(args) then
+        elseif one_versus_x.Trackers.HandleSlashCommand(args) then
             return
         elseif panelRef and LAM and LAM.OpenToPanel then
             LAM:OpenToPanel(panelRef)

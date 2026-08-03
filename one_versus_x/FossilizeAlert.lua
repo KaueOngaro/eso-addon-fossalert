@@ -1,12 +1,12 @@
 -- FossilizeAlert: alerta quando Petrify/Fossilize/Shattering Rocks te acerta,
 -- suprimido se voce ja estiver em imunidade de CC.
 
-FossAlert = FossAlert or {}
-FossAlert.FossilizeAlert = FossAlert.FossilizeAlert or {}
-local M = FossAlert.FossilizeAlert
+one_versus_x = one_versus_x or {}
+one_versus_x.FossilizeAlert = one_versus_x.FossilizeAlert or {}
+local M = one_versus_x.FossilizeAlert
 
-local ADDON     = "FossAlert"
-local EVENT_NS  = "FossAlert_Fossilize"
+local ADDON     = "one_versus_x"
+local EVENT_NS  = "one_versus_x_Fossilize"
 
 -- =========================================================
 -- IDs
@@ -182,7 +182,7 @@ end
 -- ---------------------------------------------------------
 
 function M.Initialize(newSv, newL)
-    sv, L, Msg = newSv, newL, FossAlert.Msg
+    sv, L, Msg = newSv, newL, one_versus_x.Msg
 
     CreateUI()
     ApplyStyle()

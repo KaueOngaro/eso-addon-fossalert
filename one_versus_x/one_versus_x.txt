@@ -1,0 +1,13 @@
+## Title: One Versus X
+## Author: Kaue
+## Version: 2.0
+## APIVersion: 101044
+## Description: Ferramentas pra lutar 1vX em Cyrodiil: alerta de Petrify/Fossilize, Squishy Detector e Trackers de buff/debuff.
+## SavedVariables: one_versus_xSV
+## DependsOn: LibAddonMenu-2.0
+
+Locale.lua
+FossilizeAlert.lua
+SquishyDetector.lua
+Trackers.lua
+Main.lua

@@ -1,11 +1,11 @@
--- FossAlert - textos / strings
+-- one_versus_x - textos / strings
 --
 -- Para adicionar um idioma novo, copie um bloco inteiro e traduza.
 -- As chaves precisam ser identicas entre os idiomas.
 
-FossAlert = FossAlert or {}
+one_versus_x = one_versus_x or {}
 
-FossAlert.STRINGS = {
+one_versus_x.STRINGS = {
 
     en = {
         LANG_NAME       = "English",
@@ -110,7 +110,7 @@ FossAlert.STRINGS = {
         BTN_TRACKER_MOVE_TT = "Unlocks the tracker tag list so you can drag it. Close settings after clicking.",
 
         -- mensagens de chat
-        MSG_LOADED      = "v1.1 loaded. Type /foss to open settings.",
+        MSG_LOADED      = "v2.0 loaded. Type /vx to open settings.",
         MSG_POS_SAVED   = "position saved (%d, %d)",
         MSG_UNLOCKED    = "UNLOCKED - close settings and drag it where you want",
         MSG_LOCKED      = "locked",
@@ -121,7 +121,7 @@ FossAlert.STRINGS = {
         MSG_NEEDS_RELOAD= "Language changed. Type /reloadui to apply it to the menu.",
         MSG_NO_LAM      = "LibAddonMenu-2.0 not found. The addon still works, but there is no options panel.",
         MSG_BAD_LAM     = "Incompatible LibAddonMenu. Run this in chat:",
-        MSG_CMDS        = "commands: /foss move | /foss test | /foss squishmove | /foss trackermove",
+        MSG_CMDS        = "commands: /vx move | /vx test | /vx squishmove | /vx trackermove",
         MSG_SQUISH_RESET= "squishy data reset",
         MSG_SQUISH_HIT  = "[squish] %s: %d dmg (%s)",
     },
@@ -228,7 +228,7 @@ FossAlert.STRINGS = {
         BTN_TRACKER_MOVE = "Mover trackers",
         BTN_TRACKER_MOVE_TT = "Destrava a lista de trackers pra arrastar. Feche as opções depois de clicar.",
 
-        MSG_LOADED      = "v1.1 carregado. Digite /foss pra abrir as opções.",
+        MSG_LOADED      = "v2.0 carregado. Digite /vx pra abrir as opções.",
         MSG_POS_SAVED   = "posição salva (%d, %d)",
         MSG_UNLOCKED    = "DESTRAVADO - feche as opções e arraste onde quiser",
         MSG_LOCKED      = "travado",
@@ -239,7 +239,7 @@ FossAlert.STRINGS = {
         MSG_NEEDS_RELOAD= "Idioma alterado. Digite /reloadui pra aplicar no menu.",
         MSG_NO_LAM      = "LibAddonMenu-2.0 não encontrada. O addon funciona, mas sem painel de opções.",
         MSG_BAD_LAM     = "LibAddonMenu incompatível. Rode isso no chat:",
-        MSG_CMDS        = "comandos: /foss move | /foss test | /foss squishmove | /foss trackermove",
+        MSG_CMDS        = "comandos: /vx move | /vx test | /vx squishmove | /vx trackermove",
         MSG_SQUISH_RESET= "dados do squishy resetados",
         MSG_SQUISH_HIT  = "[squish] %s: %d dano (%s)",
     },

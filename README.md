@@ -1,8 +1,12 @@
-# FossAlert
+# One Versus X
 
-Addon de Elder Scrolls Online que avisa quando **Petrify / Fossilize / Shattering Rocks** te acerta, dando tempo de dar roll dodge antes do stun.
+Addon de Elder Scrolls Online com ferramentas pra lutar 1vX em Cyrodiil: alerta de **Petrify / Fossilize / Shattering Rocks**, o **Squishy Detector** e **Trackers** de buff/debuff customizáveis. Começou como um addon só de alerta de roll dodge chamado FossAlert e cresceu pra um kit de sobrevivência solo — daí o nome novo.
 
-Desde a Update 49 essas habilidades não stunam mais na hora. Elas te deixam lento por **1 segundo** (snare de 50% + Minor Breach) e só depois vem o stun de 4 segundos — e esse stun agora **pode ser esquivado**. Esse 1 segundo é o motivo do addon existir: o aviso visual do jogo é fácil de perder no meio da briga, então o FossAlert torna impossível não ver.
+## Alerta de Petrify/Fossilize
+
+Avisa quando **Petrify / Fossilize / Shattering Rocks** te acerta, dando tempo de dar roll dodge antes do stun.
+
+Desde a Update 49 essas habilidades não stunam mais na hora. Elas te deixam lento por **1 segundo** (snare de 50% + Minor Breach) e só depois vem o stun de 4 segundos — e esse stun agora **pode ser esquivado**. Esse 1 segundo é o motivo dessa parte do addon existir: o aviso visual do jogo é fácil de perder no meio da briga, então o alerta torna impossível não ver.
 
 ---
 
@@ -29,15 +33,15 @@ Desde a Update 49 essas habilidades não stunam mais na hora. Elas te deixam len
 
 1. Instale a **LibAddonMenu-2.0** dentro de `AddOns/`
 2. Baixe este repositório (botão verde **Code → Download ZIP**, ou pegue o zip da aba [Releases](../../releases))
-3. Descompacte e arraste a pasta **`FossAlert`** de dentro dele para `AddOns/`
+3. Descompacte e arraste a pasta **`one_versus_x`** de dentro dele para `AddOns/`
 4. Reinicie a interface de verdade — saia para a tela de seleção de personagem e volte (`/reloadui` não pega addon novo)
 
 A estrutura tem que ficar assim:
 
 ```
 Documentos/Elder Scrolls Online/live/AddOns/
-├── FossAlert/
-│   ├── FossAlert.txt
+├── one_versus_x/
+│   ├── one_versus_x.txt
 │   ├── Locale.lua
 │   ├── FossilizeAlert.lua
 │   ├── SquishyDetector.lua
@@ -49,8 +53,12 @@ Documentos/Elder Scrolls Online/live/AddOns/
 
 Dois erros clássicos de instalação:
 
-- **Arrastar a pasta errada.** O zip do GitHub vem com uma pasta externa chamada `eso-addon-fossalert-main`. O que vai para `AddOns/` é a pasta `FossAlert` que está **dentro** dela — o nome da pasta precisa bater com o nome do arquivo `.txt`, senão o jogo ignora o addon sem dar nenhum aviso.
-- **Aninhar a LibAddonMenu.** Ela fica **ao lado** da `FossAlert`, não dentro dela.
+- **Arrastar a pasta errada.** O zip do GitHub vem com uma pasta externa. O que vai para `AddOns/` é a pasta `one_versus_x` que está **dentro** dela — o nome da pasta precisa bater com o nome do arquivo `.txt`, senão o jogo ignora o addon sem dar nenhum aviso.
+- **Aninhar a LibAddonMenu.** Ela fica **ao lado** da `one_versus_x`, não dentro dela.
+
+### Já tinha o FossAlert instalado?
+
+Pode apagar a pasta antiga (`FossAlert`) depois de instalar a `one_versus_x`. Não tem migração automática de configurações — o ESO nomeia o arquivo de `SavedVariables` pela identidade da pasta/manifesto do addon, não pelo nome da variável salva, então a versão nova não enxerga o arquivo antigo. Posição das janelas, thresholds e médias aprendidas do Squishy Detector voltam ao padrão e recalibram sozinhas com o uso normal.
 
 ---
 
@@ -58,17 +66,17 @@ Dois erros clássicos de instalação:
 
 | Comando | O que faz |
 |---|---|
-| `/foss` | Abre o painel de configuração |
-| `/foss move` | Destrava o alerta pra arrastar, e trava de novo |
-| `/foss test` | Dispara o alerta pra conferir posição e som |
-| `/foss squishmove` | Destrava a etiqueta do Squishy Detector pra arrastar, e trava de novo |
-| `/foss trackermove` | Destrava a lista de trackers pra arrastar, e trava de novo |
+| `/vx` | Abre o painel de configuração |
+| `/vx move` | Destrava o alerta pra arrastar, e trava de novo |
+| `/vx test` | Dispara o alerta pra conferir posição e som |
+| `/vx squishmove` | Destrava a etiqueta do Squishy Detector pra arrastar, e trava de novo |
+| `/vx trackermove` | Destrava a lista de trackers pra arrastar, e trava de novo |
 
-O resto está no painel: **Settings → Addons → FossAlert**.
+O resto está no painel: **Settings → Addons → One Versus X**.
 
 ### Posicionamento
 
-Rode `/foss move`, feche a janela de configuração, arraste a caixa pra onde quiser e rode `/foss move` de novo pra travar. A posição salva sozinha.
+Rode `/vx move`, feche a janela de configuração, arraste a caixa pra onde quiser e rode `/vx move` de novo pra travar. A posição salva sozinha.
 
 O alerta não dispara enquanto estiver destravado — lembre de travar antes de ir pra Cyrodiil.
 
@@ -139,7 +147,7 @@ categoria a cada hit isolado (crítico, resistido, etc.).
 
 **Como usar:**
 
-1. Ative **Squishy Detector** no painel (`Settings → Addons → FossAlert`)
+1. Ative **Squishy Detector** no painel (`Settings → Addons → One Versus X`)
 2. Lute normalmente — os primeiros hits de cada habilidade servem só pra
    aprender a média (são necessárias pelo menos 3 amostras antes do score
    ficar confiável)
@@ -176,11 +184,11 @@ quem já foi confirmado como jogador), não as médias aprendidas.
 Feature independente do Squishy Detector — não precisa dele ativado, só do
 reticulo. Vigia até 5 nomes de buff/debuff no alvo mirado e, sempre que um
 deles estiver ativo, mostra uma etiqueta com o nome numa lista empilhada,
-numa janela própria e movível (`/foss trackermove` ou botão no painel).
+numa janela própria e movível (`/vx trackermove` ou botão no painel).
 
 **Como usar:**
 
-1. Ative **Trackers** no painel (`Settings → Addons → FossAlert` → seção
+1. Ative **Trackers** no painel (`Settings → Addons → One Versus X` → seção
    Trackers)
 2. Preencha "Tracker 1" a "Tracker 5" com o nome exato do buff/debuff que
    quer vigiar (o nome precisa bater com o que aparece no jogo — o client só
@@ -199,7 +207,7 @@ acertado o alvo.
 Copie qualquer bloco do `Locale.lua`, troque a chave e traduza os valores. O dropdown de idioma se monta sozinho a partir dessa tabela, então você nunca precisa mexer nos outros arquivos `.lua`.
 
 ```lua
-FossAlert.STRINGS = {
+one_versus_x.STRINGS = {
     en = { LANG_NAME = "English", ... },
     pt = { LANG_NAME = "Português", ... },
     -- seu idioma aqui
@@ -212,7 +220,7 @@ Todas as chaves precisam existir em todos os blocos.
 
 ## Limitações conhecidas
 
-**O addon não rola por você.** Isso é de propósito e não tem contorno: a API Lua do ESO não expõe nenhuma forma de gerar input de combate, e automatizar por fora viola os termos de uso. O FossAlert avisa; você decide. E é melhor assim — rolar automático em todo Fossilize te deixa previsível e queima stamina que um adversário decente vai adorar baitar.
+**O addon não rola por você.** Isso é de propósito e não tem contorno: a API Lua do ESO não expõe nenhuma forma de gerar input de combate, e automatizar por fora viola os termos de uso. O addon avisa; você decide. E é melhor assim — rolar automático em todo Fossilize te deixa previsível e queima stamina que um adversário decente vai adorar baitar.
 
 **Não dá pra usar som personalizado.** A API só toca sons que já vêm no jogo (a tabela `SOUNDS`). É limitação do cliente, não descuido.
 
