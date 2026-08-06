@@ -1,6 +1,6 @@
 # One Versus X
 
-Addon de Elder Scrolls Online com ferramentas pra lutar 1vX em Cyrodiil: alerta de **Petrify / Fossilize / Shattering Rocks**, o **Squishy Detector** e **Trackers** de buff/debuff customizáveis. Começou como um addon só de alerta de roll dodge chamado FossAlert e cresceu pra um kit de sobrevivência solo — daí o nome novo.
+Addon de Elder Scrolls Online com ferramentas pra lutar 1vX em Cyrodiil: alerta de **Petrify / Fossilize / Shattering Rocks**, o **Squishy Detector**, **Trackers** de buff/debuff customizáveis e o **Resolve Reminder**. Começou como um addon só de alerta de roll dodge chamado FossAlert e cresceu pra um kit de sobrevivência solo — daí o nome novo.
 
 ## Alerta de Petrify/Fossilize
 
@@ -18,6 +18,7 @@ Desde a Update 49 essas habilidades não stunam mais na hora. Elas te deixam len
 - Totalmente movível e customizável (texto, tamanho, cor, duração)
 - **Squishy Detector**: aprende sozinho a média de dano de cada habilidade e classifica quem você mirar em cinco níveis (de Super Light a Super Heavy), com a cor da etiqueta em gradiente contínuo — verde pra alvo prioritário, vermelho pra tanque — sem precisar configurar nada
 - **Trackers**: feature independente que vigia até 5 buffs/debuffs customizados (ex: Minor Mangle) e avisa quando o alvo mirado estiver com eles
+- **Resolve Reminder**: mensagenzona na tela, no estilo do alerta de Fossilize, quando você está em combate sem Major Resolve — dispara na hora que cai e repete em intervalos até você reaplicar
 - Português e inglês, com detecção automática
 - Sniffer de abilityId embutido pra achar IDs novos depois de cada patch
 
@@ -46,6 +47,7 @@ Documentos/Elder Scrolls Online/live/AddOns/
 │   ├── FossilizeAlert.lua
 │   ├── SquishyDetector.lua
 │   ├── Trackers.lua
+│   ├── ResolveReminder.lua
 │   └── Main.lua
 └── LibAddonMenu-2.0/
     └── ...
@@ -71,6 +73,8 @@ Pode apagar a pasta antiga (`FossAlert`) depois de instalar a `one_versus_x`. N�
 | `/vx test` | Dispara o alerta pra conferir posição e som |
 | `/vx squishmove` | Destrava a etiqueta do Squishy Detector pra arrastar, e trava de novo |
 | `/vx trackermove` | Destrava a lista de trackers pra arrastar, e trava de novo |
+| `/vx resolvemove` | Destrava o aviso de Resolve pra arrastar, e trava de novo |
+| `/vx resolvetest` | Dispara o aviso de Resolve pra conferir posição |
 
 O resto está no painel: **Settings → Addons → One Versus X**.
 
@@ -199,6 +203,29 @@ Por padrão o Tracker 1 já vem preenchido com **"Minor Mangle"**; os outros 4
 slots começam vazios. A leitura é direto do buff do alvo via
 `GetUnitBuffInfo` — não depende de dano, então funciona mesmo sem nunca ter
 acertado o alvo.
+
+---
+
+## Resolve Reminder
+
+Mensagenzona na tela, no mesmo estilo visual do alerta de Fossilize, pra
+lembrar de manter o **Major Resolve** ativo em combate. Só é relevante
+enquanto você está em combate — fora dele fica quieto.
+
+**Como funciona:**
+
+1. Ative **Resolve Reminder** no painel (`Settings → Addons → One Versus X`
+   → seção Resolve Reminder)
+2. Assim que o Major Resolve cair **em combate**, o aviso dispara na hora
+3. Enquanto você continuar em combate sem o buff, o aviso repete no
+   intervalo configurado em **"Repetir a cada"** (padrão 5s) — cobre tanto
+   quem perdeu o buff no meio da luta quanto quem simplesmente esqueceu de
+   aplicar
+4. O aviso some assim que você reaplica o Major Resolve ou sai de combate
+
+Texto, fonte, cor e duração na tela são customizáveis igual ao alerta de
+Fossilize; a posição é independente e move com `/vx resolvemove` (ou botão
+no painel).
 
 ---
 

@@ -19,6 +19,7 @@ one_versus_x.STRINGS = {
         HDR_SOUND       = "Sound",
         HDR_SQUISHY     = "Squishy Detector",
         HDR_TRACKER     = "Trackers",
+        HDR_RESOLVE     = "Resolve Reminder",
         HDR_DEBUG       = "Debug",
 
         LANGUAGE        = "Language",
@@ -109,6 +110,19 @@ one_versus_x.STRINGS = {
         BTN_TRACKER_MOVE = "Move trackers",
         BTN_TRACKER_MOVE_TT = "Unlocks the tracker tag list so you can drag it. Close settings after clicking.",
 
+        -- resolve reminder
+        RESOLVE_DESC    = "Big on-screen warning, same style as the Fossilize alert, for when you're " ..
+                          "in combat without Major Resolve. Fires the instant it drops, and keeps " ..
+                          "repeating at an interval while you're still in combat without it -- so it " ..
+                          "catches both \"it fell off mid-fight\" and \"forgot to apply it in the first place\".",
+        RESOLVE_ENABLE  = "Enable Resolve Reminder",
+        RESOLVE_ENABLE_TT = "Watches for Major Resolve while you're in combat.",
+        DEFAULT_RESOLVE_ALERT = "NO RESOLVE!",
+        RESOLVE_DURATION_TT = "Only affects how long the text stays visible, not detection.",
+        RESOLVE_NAG_INTERVAL = "Repeat every (ms)",
+        RESOLVE_NAG_INTERVAL_TT = "How often the warning repeats while you're still in combat without " ..
+                          "Major Resolve.",
+
         -- mensagens de chat
         MSG_LOADED      = "v2.0 loaded. Type /vx to open settings.",
         MSG_POS_SAVED   = "position saved (%d, %d)",
@@ -121,7 +135,7 @@ one_versus_x.STRINGS = {
         MSG_NEEDS_RELOAD= "Language changed. Type /reloadui to apply it to the menu.",
         MSG_NO_LAM      = "LibAddonMenu-2.0 not found. The addon still works, but there is no options panel.",
         MSG_BAD_LAM     = "Incompatible LibAddonMenu. Run this in chat:",
-        MSG_CMDS        = "commands: /vx move | /vx test | /vx squishmove | /vx trackermove",
+        MSG_CMDS        = "commands: /vx move | /vx test | /vx squishmove | /vx trackermove | /vx resolvemove | /vx resolvetest",
         MSG_SQUISH_RESET= "squishy data reset",
         MSG_SQUISH_HIT  = "[squish] %s: %d dmg (%s)",
     },
@@ -138,6 +152,7 @@ one_versus_x.STRINGS = {
         HDR_SOUND       = "Som",
         HDR_SQUISHY     = "Squishy Detector",
         HDR_TRACKER     = "Trackers",
+        HDR_RESOLVE     = "Lembrete de Resolve",
         HDR_DEBUG       = "Debug",
 
         LANGUAGE        = "Idioma",
@@ -228,6 +243,19 @@ one_versus_x.STRINGS = {
         BTN_TRACKER_MOVE = "Mover trackers",
         BTN_TRACKER_MOVE_TT = "Destrava a lista de trackers pra arrastar. Feche as opções depois de clicar.",
 
+        -- lembrete de resolve
+        RESOLVE_DESC    = "Mensagenzona na tela, no mesmo estilo do alerta de Fossilize, pra quando " ..
+                          "você estiver em combate sem Major Resolve. Dispara na hora que ele cai, e " ..
+                          "continua repetindo num intervalo enquanto você seguir em combate sem ele -- " ..
+                          "cobre tanto \"caiu no meio da luta\" quanto \"esqueci de aplicar\".",
+        RESOLVE_ENABLE  = "Ativar Lembrete de Resolve",
+        RESOLVE_ENABLE_TT = "Vigia o Major Resolve enquanto você estiver em combate.",
+        DEFAULT_RESOLVE_ALERT = "SEM RESOLVE!",
+        RESOLVE_DURATION_TT = "Só afeta quanto tempo o texto fica visível, não a detecção.",
+        RESOLVE_NAG_INTERVAL = "Repetir a cada (ms)",
+        RESOLVE_NAG_INTERVAL_TT = "De quanto em quanto tempo o aviso repete enquanto você continuar " ..
+                          "em combate sem Major Resolve.",
+
         MSG_LOADED      = "v2.0 carregado. Digite /vx pra abrir as opções.",
         MSG_POS_SAVED   = "posição salva (%d, %d)",
         MSG_UNLOCKED    = "DESTRAVADO - feche as opções e arraste onde quiser",
@@ -239,7 +267,7 @@ one_versus_x.STRINGS = {
         MSG_NEEDS_RELOAD= "Idioma alterado. Digite /reloadui pra aplicar no menu.",
         MSG_NO_LAM      = "LibAddonMenu-2.0 não encontrada. O addon funciona, mas sem painel de opções.",
         MSG_BAD_LAM     = "LibAddonMenu incompatível. Rode isso no chat:",
-        MSG_CMDS        = "comandos: /vx move | /vx test | /vx squishmove | /vx trackermove",
+        MSG_CMDS        = "comandos: /vx move | /vx test | /vx squishmove | /vx trackermove | /vx resolvemove | /vx resolvetest",
         MSG_SQUISH_RESET= "dados do squishy resetados",
         MSG_SQUISH_HIT  = "[squish] %s: %d dano (%s)",
     },

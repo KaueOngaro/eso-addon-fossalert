@@ -10,4 +10,5 @@ Locale.lua
 FossilizeAlert.lua
 SquishyDetector.lua
 Trackers.lua
+ResolveReminder.lua
 Main.lua

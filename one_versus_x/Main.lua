@@ -103,6 +103,7 @@ local function BuildMenu()
                 one_versus_x.FossilizeAlert.SetLocale(L)
                 one_versus_x.SquishyDetector.SetLocale(L)
                 one_versus_x.Trackers.SetLocale(L)
+                one_versus_x.ResolveReminder.SetLocale(L)
                 Msg(L.MSG_NEEDS_RELOAD)
             end,
         },
@@ -111,6 +112,7 @@ local function BuildMenu()
     AppendAll(options, one_versus_x.FossilizeAlert.BuildPanelOptions())
     AppendAll(options, one_versus_x.SquishyDetector.BuildPanelOptions())
     AppendAll(options, one_versus_x.Trackers.BuildPanelOptions())
+    AppendAll(options, one_versus_x.ResolveReminder.BuildPanelOptions())
 
     table.insert(options, { type = "header", name = L.HDR_DEBUG })
     table.insert(options, {
@@ -136,6 +138,7 @@ local function OnLoaded(_, addonName)
     MergeDefaultsInto(defaults, one_versus_x.FossilizeAlert.defaults)
     MergeDefaultsInto(defaults, one_versus_x.SquishyDetector.defaults)
     MergeDefaultsInto(defaults, one_versus_x.Trackers.defaults)
+    MergeDefaultsInto(defaults, one_versus_x.ResolveReminder.defaults)
 
     sv = ZO_SavedVars:NewAccountWide("one_versus_xSV", 1, nil, defaults)
     L  = ResolveLocale()
@@ -143,6 +146,7 @@ local function OnLoaded(_, addonName)
     one_versus_x.FossilizeAlert.Initialize(sv, L)
     one_versus_x.SquishyDetector.Initialize(sv, L)
     one_versus_x.Trackers.Initialize(sv, L)
+    one_versus_x.ResolveReminder.Initialize(sv, L)
 
     BuildMenu()
 
@@ -154,6 +158,8 @@ local function OnLoaded(_, addonName)
         elseif one_versus_x.SquishyDetector.HandleSlashCommand(args) then
             return
         elseif one_versus_x.Trackers.HandleSlashCommand(args) then
+            return
+        elseif one_versus_x.ResolveReminder.HandleSlashCommand(args) then
             return
         elseif panelRef and LAM and LAM.OpenToPanel then
             LAM:OpenToPanel(panelRef)

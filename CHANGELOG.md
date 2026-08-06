@@ -1,5 +1,8 @@
 # Changelog
 
+## Não lançado
+- Resolve Reminder: mensagenzona na tela (estilo do alerta de Fossilize) quando você está em combate sem Major Resolve — dispara na hora que o buff cai e repete num intervalo configurável até você reaplicar ou sair de combate (`/vx resolvemove`, `/vx resolvetest`)
+
 ## 2.0
 - Addon renomeado de FossAlert pra **One Versus X**, refletindo que virou um kit de ferramentas pra lutar 1vX (não só o alerta de Fossilize)
 - Pasta/manifesto renomeados pra `one_versus_x`, namespace interno Lua também
